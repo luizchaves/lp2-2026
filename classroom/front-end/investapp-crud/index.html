@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invest App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/icons.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container">
+        <a class="navbar-brand" href="#">Invest App</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sair</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div>
+        <button class="btn btn-secondary float-end rounded-circle" type="button" data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas">
+          +
+        </button>
+        <h1 class="text-center my-5">Invest App</h1>
+      </div>
+
+      <div
+        class="investments-grid row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"
+      ></div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="formOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Novo Investimento</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="investment-form">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nome do Investimento</label>
+            <input type="text" class="form-control" id="name" required placeholder="Nome do investimento" autofocus>
+          </div>
+          <div class="mb-3">
+            <label for="value" class="form-label">Valor (R$)</label>
+            <input type="number" class="form-control" id="value" min="0" step="0.01" required placeholder="Valor do investimento">
+          </div>
+          <button type="submit" class="btn btn-secondary w-100" data-bs-toggle="offcanvas" data-bs-target="#formOffcanvas">Adicionar investimento</button>
+        </form>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/main.js" type="module"></script>
+  </body>
+</html>

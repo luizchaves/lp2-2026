@@ -52,5 +52,5 @@ function sumAll(...numbers) {
   return total;
 }
 
-console.log(sumAll(1, 2, 3)); // 6
-console.log(sumAll(4, 5)); // 9
+console.log(sumAll(1, 2, 3)); // 6 | number = [1, 2, 3]
+console.log(sumAll(4, 5)); // 9 | number = [4, 5]
