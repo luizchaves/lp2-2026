@@ -1,0 +1,14 @@
+{
+  "name": "investment-api",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "morgan": "^1.10.1",
+    "uuid": "^13.0.0"
+  }
+}

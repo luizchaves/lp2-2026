@@ -1,0 +1,63 @@
+# Rest Client (VS Code Extension - HTTP Requests)
+@server=http://localhost:3000
+
+### Create an investment
+POST {{server}}/api/investments
+Content-Type: application/json
+
+{
+  "name": "Tesouro Selic 2031",
+  "value": 18654
+}
+
+### Create an investment without name
+POST {{server}}/api/investments
+Content-Type: application/json
+
+{
+  "value": 18654
+}
+
+### Read investments
+GET {{server}}/api/investments
+
+### Read an investment
+GET {{server}}/api/investments/8c822dcf-cdf8-46ac-b8f4-b9d00a476ac2
+
+### Read an investment with invalid id
+GET {{server}}/api/investments/not-a-valid-id
+
+### Update an investment
+PUT {{server}}/api/investments/8c822dcf-cdf8-46ac-b8f4-b9d00a476ac2
+Content-Type: application/json
+
+{
+  "name": "Tesouro Selic 2031",
+  "value": 37308
+}
+
+### Update an investment without name
+PUT {{server}}/api/investments/8c822dcf-cdf8-46ac-b8f4-b9d00a476ac2
+Content-Type: application/json
+
+{
+  "value": 37308
+}
+
+### Update an investment with invalid id
+PUT {{server}}/api/investments/not-a-valid-id
+Content-Type: application/json
+
+{
+  "name": "Tesouro Selic 2031",
+  "value": 37308
+}
+
+### Delete an investment
+DELETE {{server}}/api/investments/8c822dcf-cdf8-46ac-b8f4-b9d00a476ac2
+
+### Delete an investment with invalid id
+DELETE {{server}}/api/investments/not-a-valid-id
+
+### Get an invalid route (404)
+GET {{server}}/api/invalid-route
