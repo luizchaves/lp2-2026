@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 
 import route from './routes.js';
+import Seed from './database/seeders.js';
 
 const app = express();
 
@@ -12,5 +13,7 @@ app.use(express.static('public'));
 app.use(express.json());
 
 app.use('/api', route);
+
+await Seed.up();
 
 app.listen(3000, () => console.log('Investment API listening on port 3000'));

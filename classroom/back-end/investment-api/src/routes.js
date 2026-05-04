@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import { v4 as uuidv4 } from 'uuid';
 
-import { investments } from './data/investments.js';
+import Investment from './models/Investment.js';
 
-const route = Router();
+const router = Router();
 
 class HttpError extends Error {
   constructor(message, code = 400) {
@@ -12,81 +11,73 @@ class HttpError extends Error {
   }
 }
 
-route.post('/investments', (req, res) => {
-  const { name, value } = req.body;
+router.post('/investments', async (req, res) => {
+  try {
+    const investment = req.body;
 
-  if (!name || !value) {
-    throw new HttpError('Name and value are required');
+    const createdInvestment = await Investment.create(investment);
+
+    return res.json(createdInvestment);
+  } catch (error) {
+    throw new HTTPError('Unable to create investment', 400);
   }
-
-  const id = uuidv4();
-
-  const investment = { id, name, value };
-
-  investments.push(investment);
-
-  return res.status(201).json(investment);
 });
 
-route.get('/investments', (req, res) => {
-  return res.json(investments);
+router.get('/investments', async (req, res) => {
+  try {
+    const { name } = req.query;
+
+    const investments = await Investment.read('name', name);
+
+    res.json(investments);
+  } catch (error) {
+    throw new HTTPError('Unable to read investments', 400);
+  }
 });
 
-route.get('/investments/:id', (req, res) => {
-  const { id } = req.params;
+router.get('/investments/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
 
-  const investment = investments.find((investment) => investment.id === id);
+    const investment = await Investment.readById(id);
 
-  if (!investment) {
-    return res.status(404).json({ error: 'Investment not found' });
+    res.json(investment);
+  } catch (error) {
+    throw new HTTPError('Unable to find investment', 400);
   }
-
-  return res.json(investment);
 });
 
-route.put('/investments/:id', (req, res) => {
-  const { name, value } = req.body;
+router.put('/investments/:id', async (req, res) => {
+  try {
+    const investment = req.body;
 
-  if (!name || !value) {
-    throw new HttpError('Name and value are required');
+    const id = req.params.id;
+
+    const updatedInvestment = await Investment.update({ ...investment, id });
+
+    return res.json(updatedInvestment);
+  } catch (error) {
+    throw new HTTPError('Unable to update investment', 400);
   }
-
-  const { id } = req.params;
-
-  const index = investments.findIndex((investment) => investment.id === id);
-
-  if (index === -1) {
-    throw new HttpError('Investment not found', 404);
-  }
-
-  const updatedInvestment = { id, name, value };
-
-  investments[index] = updatedInvestment;
-
-  return res.json(updatedInvestment);
 });
 
-route.delete('/investments/:id', (req, res) => {
-  const { id } = req.params;
+router.delete('/investments/:id', async (req, res) => {
+  const id = req.params.id;
 
-  const index = investments.findIndex((investment) => investment.id === id);
-
-  if (index === -1) {
-    throw new HttpError('Investment not found', 404);
+  if (await Investment.remove(id)) {
+    res.sendStatus(204);
+  } else {
+    throw new HTTPError('Unable to remove investment', 400);
   }
-
-  investments.splice(index, 1);
-
-  return res.status(204).send();
 });
 
 // 404 handler
-route.use((req, res, next) => {
+router.use((req, res, next) => {
   res.status(404).json({ error: 'Content not found!' });
 });
 
 // Error handler
-route.use((err, req, res, next) => {
+router.use((err, req, res, next) => {
   // console.error(err.stack);
 
   if (err instanceof HttpError) {
@@ -96,4 +87,4 @@ route.use((err, req, res, next) => {
   return res.status(500).json({ message: 'Something broke!' });
 });
 
-export default route;
+export default router;

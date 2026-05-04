@@ -1,7 +1,9 @@
 # Rest Client (VS Code Extension - HTTP Requests)
 @server=http://localhost:3000
+@createInvestmentId={{createInvestment.response.body.$.id}}
 
 ### Create an investment
+# @name createInvestment
 POST {{server}}/api/investments
 Content-Type: application/json
 
@@ -22,13 +24,13 @@ Content-Type: application/json
 GET {{server}}/api/investments
 
 ### Read an investment
-GET {{server}}/api/investments/8c822dcf-cdf8-46ac-b8f4-b9d00a476ac2
+GET {{server}}/api/investments/{{createInvestmentId}}
 
 ### Read an investment with invalid id
 GET {{server}}/api/investments/not-a-valid-id
 
 ### Update an investment
-PUT {{server}}/api/investments/8c822dcf-cdf8-46ac-b8f4-b9d00a476ac2
+PUT {{server}}/api/investments/{{createInvestmentId}}
 Content-Type: application/json
 
 {
@@ -37,7 +39,7 @@ Content-Type: application/json
 }
 
 ### Update an investment without name
-PUT {{server}}/api/investments/8c822dcf-cdf8-46ac-b8f4-b9d00a476ac2
+PUT {{server}}/api/investments/{{createInvestmentId}}
 Content-Type: application/json
 
 {
@@ -54,7 +56,7 @@ Content-Type: application/json
 }
 
 ### Delete an investment
-DELETE {{server}}/api/investments/8c822dcf-cdf8-46ac-b8f4-b9d00a476ac2
+DELETE {{server}}/api/investments/{{createInvestmentId}}
 
 ### Delete an investment with invalid id
 DELETE {{server}}/api/investments/not-a-valid-id
