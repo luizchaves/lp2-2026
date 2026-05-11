@@ -14,6 +14,4 @@ app.use(express.json());
 
 app.use('/api', route);
 
-await Seed.up();
-
 app.listen(3000, () => console.log('Investment API listening on port 3000'));

@@ -19,7 +19,7 @@ router.post('/investments', async (req, res) => {
 
     return res.json(createdInvestment);
   } catch (error) {
-    throw new HTTPError('Unable to create investment', 400);
+    throw new HttpError('Unable to create investment', 400);
   }
 });
 
@@ -27,11 +27,17 @@ router.get('/investments', async (req, res) => {
   try {
     const { name } = req.query;
 
-    const investments = await Investment.read('name', name);
+    let investments;
+
+    if (name) {
+      investments = await Investment.read('name', name);
+    } else {
+      investments = await Investment.read();
+    }
 
     res.json(investments);
   } catch (error) {
-    throw new HTTPError('Unable to read investments', 400);
+    throw new HttpError('Unable to read investments', 400);
   }
 });
 
@@ -43,7 +49,7 @@ router.get('/investments/:id', async (req, res) => {
 
     res.json(investment);
   } catch (error) {
-    throw new HTTPError('Unable to find investment', 400);
+    throw new HttpError('Unable to find investment', 400);
   }
 });
 
@@ -57,17 +63,21 @@ router.put('/investments/:id', async (req, res) => {
 
     return res.json(updatedInvestment);
   } catch (error) {
-    throw new HTTPError('Unable to update investment', 400);
+    throw new HttpError('Unable to update investment', 400);
   }
 });
 
 router.delete('/investments/:id', async (req, res) => {
-  const id = req.params.id;
+  try {
+    const id = req.params.id;
 
-  if (await Investment.remove(id)) {
-    res.sendStatus(204);
-  } else {
-    throw new HTTPError('Unable to remove investment', 400);
+    if (await Investment.remove(id)) {
+      return res.sendStatus(204);
+    }
+
+    throw new HttpError('Unable to remove investment', 400);
+  } catch (error) {
+    throw new HttpError('Unable to remove investment', 400);
   }
 });
 
