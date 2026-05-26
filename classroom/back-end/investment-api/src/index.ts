@@ -1,8 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 
-import route from './routes.js';
-import Seed from './database/seeders.js';
+import route from '@/routes.ts';
 
 const app = express();
 

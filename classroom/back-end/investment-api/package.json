@@ -3,14 +3,22 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "node --watch src/index.js",
+    "start": "tsc && node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
     "db:reload": "npm run db:drop && npm run db:load",
-    "db:load": "node src/database/load.js",
+    "db:load": "tsx src/database/load.ts",
     "db:drop": "rm src/database/db.sqlite"
   },
   "dependencies": {
     "express": "^5.2.1",
     "morgan": "^1.10.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^25.9.1",
+    "tsx": "^4.22.3",
+    "typescript": "^6.0.3"
   }
 }

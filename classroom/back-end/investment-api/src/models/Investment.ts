@@ -1,6 +1,17 @@
-import Database from '../database/database.js';
+import Database from '@/database/database.ts';
 
-async function create({ name, value }) {
+interface Investment {
+  id: number;
+  name: string;
+  value: number;
+}
+
+interface InvestmentInput {
+  name?: string;
+  value?: number;
+}
+
+async function create({ name, value }: InvestmentInput): Promise<Investment> {
   const db = await Database.connect();
 
   if (name && value) {
@@ -19,7 +30,10 @@ async function create({ name, value }) {
   }
 }
 
-async function read(field, value) {
+async function read(
+  field?: string,
+  value?: string | number,
+): Promise<Investment[]> {
   const db = await Database.connect();
 
   if (field && value) {
@@ -34,7 +48,7 @@ async function read(field, value) {
 
     const investments = await db.all(sql, [value]);
 
-    return investments;
+    return investments as unknown as Investment[];
   }
 
   const sql = `
@@ -46,10 +60,10 @@ async function read(field, value) {
 
   const investments = await db.all(sql);
 
-  return investments;
+  return investments as unknown as Investment[];
 }
 
-async function readById(id) {
+async function readById(id: number | string): Promise<Investment> {
   const db = await Database.connect();
 
   if (id) {
@@ -62,10 +76,10 @@ async function readById(id) {
           id = ?
       `;
 
-    const investment = await db.get(sql, [id]);
+    const investment = await db.get(sql, [id as number]);
 
     if (investment) {
-      return investment;
+      return investment as unknown as Investment;
     } else {
       throw new Error('Investment not found');
     }
@@ -74,7 +88,11 @@ async function readById(id) {
   }
 }
 
-async function update({ id, name, value }) {
+async function update({
+  id,
+  name,
+  value,
+}: InvestmentInput & { id?: number | string }): Promise<Investment> {
   const db = await Database.connect();
 
   if (name && value && id) {
@@ -87,7 +105,7 @@ async function update({ id, name, value }) {
         id = ?
     `;
 
-    const { changes } = await db.run(sql, [name, value, id]);
+    const { changes } = await db.run(sql, [name, value, id as number]);
 
     if (changes === 1) {
       return readById(id);
@@ -99,7 +117,7 @@ async function update({ id, name, value }) {
   }
 }
 
-async function remove(id) {
+async function remove(id: string | number): Promise<boolean> {
   const db = await Database.connect();
 
   if (id) {
@@ -110,7 +128,7 @@ async function remove(id) {
         id = ?
     `;
 
-    const { changes } = await db.run(sql, [id]);
+    const { changes } = await db.run(sql, [id as number]);
 
     if (changes === 1) {
       return true;
