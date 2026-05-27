@@ -1,18 +1,19 @@
+import Category from '@/models/Category.ts';
+import Broker from '@/models/Broker.ts';
 import Investment from '@/models/Investment.ts';
 import seedersData from '@/database/seeders.json' with { type: 'json' };
 
-const models = {
-  investments: Investment,
-} satisfies Record<
-  keyof typeof seedersData,
-  { create: (data: any) => Promise<any> }
->;
-
 async function up() {
-  for (const [model, values] of Object.entries(seedersData)) {
-    for (const value of values) {
-      await models[model as keyof typeof models].create(value);
-    }
+  for (const data of seedersData.categories) {
+    await Category.create(data);
+  }
+
+  for (const data of seedersData.brokers) {
+    await Broker.create(data);
+  }
+
+  for (const data of seedersData.investments) {
+    await Investment.create(data);
   }
 }
 

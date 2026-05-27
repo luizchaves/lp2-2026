@@ -1,7 +1,26 @@
 erDiagram
 
-investments {
-  INTEGER id PK
-  VARCHAR name
-  INTEGER value
+Investment {
+  String id PK
+  String name
+  Int amount
+  String interest
+  DateTime createdAt
+  DateTime dueDate
+  String categoryId FK
+  String brokerId FK
 }
+
+Category {
+  String id PK
+  String name
+  String color
+}
+
+Broker {
+  String id PK
+  String name
+}
+
+Category ||--o{ Investment : "has"
+Broker ||--o{ Investment : "has"

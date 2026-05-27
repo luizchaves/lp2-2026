@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
   "name": "Tesouro Selic 2031",
-  "value": 18654
+  "amount": 18654
 }
 
 ### Create an investment without name
@@ -17,7 +17,7 @@ POST {{server}}/api/investments
 Content-Type: application/json
 
 {
-  "value": 18654
+  "amount": 18654
 }
 
 ### Read investments
@@ -35,7 +35,7 @@ Content-Type: application/json
 
 {
   "name": "Tesouro Selic 2031",
-  "value": 37308
+  "amount": 37308
 }
 
 ### Update an investment without name
@@ -43,7 +43,7 @@ PUT {{server}}/api/investments/{{createInvestmentId}}
 Content-Type: application/json
 
 {
-  "value": 37308
+  "amount": 37308
 }
 
 ### Update an investment with invalid id
@@ -52,7 +52,7 @@ Content-Type: application/json
 
 {
   "name": "Tesouro Selic 2031",
-  "value": 37308
+  "amount": 37308
 }
 
 ### Delete an investment

@@ -2,15 +2,14 @@ import { formatCurrency } from './lib/format.js';
 
 function createInvestmentCard(investment) {
   const cardInvestment = `<div class="col">
-    <div id="investment-${investment.id}" class="card">
-      <div class="card-header">
-        ${investment.name}
-        <span class="icon iconamoon--trash float-end"></span>
-      </div>
+    <div id="investment-${investment.id}" class="card h-100 position-relative">
+      <span class="icon iconamoon--trash position-absolute top-0 end-0 m-2"></span>
       <div class="card-body">
-        <p class="card-text">
-          Valor: ${formatCurrency(investment.value / 100)}
-        </p>
+        <h5 class="card-title fw-bold mb-1">${investment.name}</h5>
+        <span class="badge mb-3" style="background-color: ${investment.category?.color ?? '#aaa'}">${investment.category?.name ?? ''}</span>
+        <p class="card-text mb-1">Valor: <strong>${formatCurrency(investment.amount / 100)}</strong></p>
+        <p class="card-text mb-1">Juros: ${investment.interest}</p>
+        <p class="card-text text-muted">Corretora: ${investment.broker?.name ?? ''}</p>
       </div>
     </div>
   </div>`;
@@ -38,6 +37,31 @@ function createInvestmentCard(investment) {
   };
 }
 
+// Load categories and brokers into selects
+const [categoriesRes, brokersRes] = await Promise.all([
+  fetch('/api/categories'),
+  fetch('/api/brokers'),
+]);
+
+const categories = await categoriesRes.json();
+const brokers = await brokersRes.json();
+
+const categorySelect = document.querySelector('#categoryId');
+for (const category of categories) {
+  categorySelect.insertAdjacentHTML(
+    'beforeend',
+    `<option value="${category.id}">${category.name}</option>`
+  );
+}
+
+const brokerSelect = document.querySelector('#brokerId');
+for (const broker of brokers) {
+  brokerSelect.insertAdjacentHTML(
+    'beforeend',
+    `<option value="${broker.id}">${broker.name}</option>`
+  );
+}
+
 // Handle form submission
 const form = document.querySelector('#investment-form');
 
@@ -45,15 +69,17 @@ form.onsubmit = async function (event) {
   event.preventDefault();
 
   const name = document.querySelector('#name').value;
-
-  const value = Math.round(Number(document.querySelector('#value').value) * 100);
+  const amount = Math.round(Number(document.querySelector('#amount').value) * 100);
+  const interest = document.querySelector('#interest').value;
+  const categoryId = document.querySelector('#categoryId').value;
+  const brokerId = document.querySelector('#brokerId').value;
 
   const response = await fetch('/api/investments', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ name, value }),
+    body: JSON.stringify({ name, amount, interest, categoryId, brokerId }),
   });
 
   if (response.ok) {
@@ -66,7 +92,6 @@ form.onsubmit = async function (event) {
 };
 
 // Load initial investments
-
 const response = await fetch('/api/investments');
 
 const investments = await response.json();

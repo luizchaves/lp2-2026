@@ -2,10 +2,11 @@ import type { Request, Response } from 'express';
 
 import Investment from '@/models/Investment.ts';
 import HttpError from '@/errors/HttpError.ts';
+import type { Investment as InvestmentType } from '@/types/Investment.d.ts';
 
 async function create(req: Request, res: Response) {
   try {
-    const investment = req.body as { name: string; value: number };
+    const investment = req.body as Omit<InvestmentType, 'id' | 'createdAt'>;
 
     const createdInvestment = await Investment.create(investment);
 
@@ -47,7 +48,7 @@ async function readById(req: Request<{ id: string }>, res: Response) {
 
 async function update(req: Request<{ id: string }>, res: Response) {
   try {
-    const investment = req.body as { name: string; value: number };
+    const investment = req.body as Omit<InvestmentType, 'id' | 'createdAt'>;
     const { id } = req.params;
 
     const updatedInvestment = await Investment.update({ ...investment, id });

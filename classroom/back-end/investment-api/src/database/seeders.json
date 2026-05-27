@@ -1,14 +1,40 @@
 {
-  "investments": [
+  "categories": [
     {
-      "id": "cmoqlvq7f0000ptmmfbau0py8",
-      "name": "Tesouro Selic 2029",
-      "value": 1000
+      "id": "8f14e45f-ceea-467a-a866-084d1d1f0a2b",
+      "name": "Renda Fixa",
+      "color": "#2196F3"
     },
     {
-      "id": "cmoqlvwzm0002ptmm5693d6jt",
+      "id": "c9f0f895-fb98-ab6f-4b23-c5bb44a69d9f",
+      "name": "Renda Variável",
+      "color": "#4CAF50"
+    }
+  ],
+  "brokers": [
+    {
+      "id": "45c48cce-2e2a-d39f-4b6a-a1b0f0b8c7e2",
+      "name": "Corretara X"
+    },
+    {
+      "id": "d3d94468-c144-4e72-b62b-c1a5b6d0a9e3",
+      "name": "Corretara Y"
+    }
+  ],
+  "investments": [
+    {
       "name": "Tesouro Selic 2029",
-      "value": 500
+      "amount": 1000,
+      "interest": "100% SELIC",
+      "categoryId": "8f14e45f-ceea-467a-a866-084d1d1f0a2b",
+      "brokerId": "45c48cce-2e2a-d39f-4b6a-a1b0f0b8c7e2"
+    },
+    {
+      "name": "CDB Banco A",
+      "amount": 5000,
+      "interest": "120% CDI",
+      "categoryId": "8f14e45f-ceea-467a-a866-084d1d1f0a2b",
+      "brokerId": "d3d94468-c144-4e72-b62b-c1a5b6d0a9e3"
     }
   ]
 }
