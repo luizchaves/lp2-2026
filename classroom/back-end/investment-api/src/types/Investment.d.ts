@@ -6,7 +6,8 @@ export interface Investment {
   name: string;
   amount: number;
   interest: string;
-  createdAt: string;
+  createdAt: Date;
+  dueDate: Date;
   categoryId: string;
   brokerId: string;
   category?: Category;
@@ -17,6 +18,7 @@ export interface InvestmentInput {
   name?: string;
   amount?: number;
   interest?: string;
+  dueDate?: string;
   categoryId?: string;
   brokerId?: string;
 }

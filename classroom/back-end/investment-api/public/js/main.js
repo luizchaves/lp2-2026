@@ -71,6 +71,7 @@ form.onsubmit = async function (event) {
   const name = document.querySelector('#name').value;
   const amount = Math.round(Number(document.querySelector('#amount').value) * 100);
   const interest = document.querySelector('#interest').value;
+  const dueDate = document.querySelector('#dueDate').value;
   const categoryId = document.querySelector('#categoryId').value;
   const brokerId = document.querySelector('#brokerId').value;
 
@@ -79,7 +80,7 @@ form.onsubmit = async function (event) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ name, amount, interest, categoryId, brokerId }),
+    body: JSON.stringify({ name, amount, interest, dueDate, categoryId, brokerId }),
   });
 
   if (response.ok) {

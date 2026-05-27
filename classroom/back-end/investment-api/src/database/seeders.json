@@ -23,9 +23,18 @@
   ],
   "investments": [
     {
+      "name": "Tesouro Reserva",
+      "amount": 1000,
+      "interest": "100% SELIC",
+      "dueDate": "2029-03-01T00:00:00.000Z",
+      "categoryId": "8f14e45f-ceea-467a-a866-084d1d1f0a2b",
+      "brokerId": "45c48cce-2e2a-d39f-4b6a-a1b0f0b8c7e2"
+    },
+    {
       "name": "Tesouro Selic 2029",
       "amount": 1000,
       "interest": "100% SELIC",
+      "dueDate": "2029-03-01T00:00:00.000Z",
       "categoryId": "8f14e45f-ceea-467a-a866-084d1d1f0a2b",
       "brokerId": "45c48cce-2e2a-d39f-4b6a-a1b0f0b8c7e2"
     },
@@ -33,6 +42,7 @@
       "name": "CDB Banco A",
       "amount": 5000,
       "interest": "120% CDI",
+      "dueDate": "2027-06-01T00:00:00.000Z",
       "categoryId": "8f14e45f-ceea-467a-a866-084d1d1f0a2b",
       "brokerId": "d3d94468-c144-4e72-b62b-c1a5b6d0a9e3"
     }

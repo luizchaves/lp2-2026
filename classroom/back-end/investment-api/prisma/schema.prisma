@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+generator erd {
+  provider     = "prisma-erd-generator"
+  disableEmoji = false
+  output       = "../docs/erd.md"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Investment {
+  id         String   @id @default(cuid())
+  name       String
+  amount     Int
+  interest   String
+  createdAt  DateTime @default(now())
+  dueDate    DateTime
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  brokerId   String
+  broker     Broker   @relation(fields: [brokerId], references: [id])
+}
+
+model Category {
+  id          String       @id @default(cuid())
+  name        String
+  color       String
+  investments Investment[]
+}
+
+model Broker {
+  id          String       @id @default(cuid())
+  name        String
+  investments Investment[]
+}
