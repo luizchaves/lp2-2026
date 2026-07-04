@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "investment-api",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "classroom/back-end/investment-api", "run", "dev"],
+      "port": 3000
+    }
+  ]
+}

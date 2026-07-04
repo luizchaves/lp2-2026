@@ -2,7 +2,10 @@ import type { Request, Response } from 'express';
 
 import Broker from '@/models/Broker.ts';
 import HttpError from '@/errors/HttpError.ts';
+import { users } from '@/database/seeders.json' with { type: 'json' };
 import type { Broker as BrokerType } from '@/types/Broker.d.ts';
+
+const ADMIN_USER_ID = users[0].id; // Assuming the first user is the admin user
 
 async function create(req: Request, res: Response) {
   try {

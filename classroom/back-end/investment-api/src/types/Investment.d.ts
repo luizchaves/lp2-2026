@@ -1,5 +1,6 @@
 import type { Category } from '@/types/Category.d.ts';
 import type { Broker } from '@/types/Broker.d.ts';
+import type { User } from '@/types/User.d.ts';
 
 export interface Investment {
   id: string;
@@ -10,8 +11,10 @@ export interface Investment {
   dueDate: Date;
   categoryId: string;
   brokerId: string;
+  userId: string;
   category?: Category;
   broker?: Broker;
+  user?: User;
 }
 
 export interface InvestmentInput {
@@ -21,4 +24,5 @@ export interface InvestmentInput {
   dueDate?: string;
   categoryId?: string;
   brokerId?: string;
+  userId?: string;
 }

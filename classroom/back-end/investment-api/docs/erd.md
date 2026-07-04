@@ -23,6 +23,15 @@ erDiagram
     String name 
     }
   
+
+  "User" {
+    String id "🗝️"
+    String name 
+    String email 
+    String password 
+    }
+  
     "Investment" }o--|| "Category" : "category"
     "Investment" }o--|| "Broker" : "broker"
+    "Investment" }o--|| "User" : "user"
 ```

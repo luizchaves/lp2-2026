@@ -1,6 +1,60 @@
 # Rest Client (VS Code Extension - HTTP Requests)
 @server=http://localhost:3000
 @createInvestmentId={{createInvestment.response.body.$.id}}
+@createUserId={{createUser.response.body.$.id}}
+
+### Create a user
+# @name createUser
+POST {{server}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Maria",
+  "email": "maria@email.com",
+  "password": "senha123"
+}
+
+### Create a user without name
+POST {{server}}/api/users
+Content-Type: application/json
+
+{
+  "email": "maria@email.com",
+  "password": "senha123"
+}
+
+### Read users
+GET {{server}}/api/users
+
+### Read a user
+GET {{server}}/api/users/{{createUserId}}
+
+### Read a user with invalid id
+GET {{server}}/api/users/not-a-valid-id
+
+### Update a user
+PUT {{server}}/api/users/{{createUserId}}
+Content-Type: application/json
+
+{
+  "name": "Maria Souza",
+  "email": "maria@email.com"
+}
+
+### Update a user with invalid id
+PUT {{server}}/api/users/not-a-valid-id
+Content-Type: application/json
+
+{
+  "name": "Maria Souza",
+  "email": "maria@email.com"
+}
+
+### Delete a user
+DELETE {{server}}/api/users/{{createUserId}}
+
+### Delete a user with invalid id
+DELETE {{server}}/api/users/not-a-valid-id
 
 ### Create an investment
 # @name createInvestment

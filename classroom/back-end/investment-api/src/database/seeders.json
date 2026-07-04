@@ -1,4 +1,12 @@
 {
+  "users": [
+    {
+      "id": "e5a1c9d2-6b3f-4a7e-8c1d-2f9b0a4d7e6c",
+      "name": "Admin",
+      "email": "admin@email.com",
+      "password": "admin"
+    }
+  ],
   "categories": [
     {
       "id": "8f14e45f-ceea-467a-a866-084d1d1f0a2b",
@@ -28,7 +36,8 @@
       "interest": "100% SELIC",
       "dueDate": "2029-03-01T00:00:00.000Z",
       "categoryId": "8f14e45f-ceea-467a-a866-084d1d1f0a2b",
-      "brokerId": "45c48cce-2e2a-d39f-4b6a-a1b0f0b8c7e2"
+      "brokerId": "45c48cce-2e2a-d39f-4b6a-a1b0f0b8c7e2",
+      "userId": "e5a1c9d2-6b3f-4a7e-8c1d-2f9b0a4d7e6c"
     },
     {
       "name": "Tesouro Selic 2029",
@@ -36,7 +45,8 @@
       "interest": "100% SELIC",
       "dueDate": "2029-03-01T00:00:00.000Z",
       "categoryId": "8f14e45f-ceea-467a-a866-084d1d1f0a2b",
-      "brokerId": "45c48cce-2e2a-d39f-4b6a-a1b0f0b8c7e2"
+      "brokerId": "45c48cce-2e2a-d39f-4b6a-a1b0f0b8c7e2",
+      "userId": "e5a1c9d2-6b3f-4a7e-8c1d-2f9b0a4d7e6c"
     },
     {
       "name": "CDB Banco A",
@@ -44,7 +54,8 @@
       "interest": "120% CDI",
       "dueDate": "2027-06-01T00:00:00.000Z",
       "categoryId": "8f14e45f-ceea-467a-a866-084d1d1f0a2b",
-      "brokerId": "d3d94468-c144-4e72-b62b-c1a5b6d0a9e3"
+      "brokerId": "d3d94468-c144-4e72-b62b-c1a5b6d0a9e3",
+      "userId": "e5a1c9d2-6b3f-4a7e-8c1d-2f9b0a4d7e6c"
     }
   ]
 }

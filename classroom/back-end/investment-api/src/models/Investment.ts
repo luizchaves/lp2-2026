@@ -1,7 +1,11 @@
 import { prisma } from '@/database/prisma.ts';
 import type { Investment, InvestmentInput } from '@/types/Investment.d.ts';
 
-const include = { category: true, broker: true };
+const include = {
+  category: true,
+  broker: true,
+  user: { select: { id: true, name: true, email: true } },
+};
 
 async function create({
   name,
@@ -10,8 +14,17 @@ async function create({
   dueDate,
   categoryId,
   brokerId,
+  userId,
 }: InvestmentInput): Promise<Investment> {
-  if (name && amount && interest && dueDate && categoryId && brokerId) {
+  if (
+    name &&
+    amount &&
+    interest &&
+    dueDate &&
+    categoryId &&
+    brokerId &&
+    userId
+  ) {
     return prisma.investment.create({
       data: {
         name,
@@ -20,6 +33,7 @@ async function create({
         dueDate: new Date(dueDate),
         categoryId,
         brokerId,
+        userId,
       },
       include,
     }) as Promise<Investment>;
@@ -53,8 +67,18 @@ async function update({
   dueDate,
   categoryId,
   brokerId,
+  userId,
 }: InvestmentInput & { id?: string }): Promise<Investment> {
-  if (name && amount && interest && dueDate && categoryId && brokerId && id) {
+  if (
+    name &&
+    amount &&
+    interest &&
+    dueDate &&
+    categoryId &&
+    brokerId &&
+    userId &&
+    id
+  ) {
     return prisma.investment.update({
       where: { id },
       data: {
@@ -64,6 +88,7 @@ async function update({
         dueDate: new Date(dueDate),
         categoryId,
         brokerId,
+        userId,
       },
       include,
     }) as Promise<Investment>;

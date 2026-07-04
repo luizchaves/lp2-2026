@@ -2,13 +2,19 @@ import type { Request, Response } from 'express';
 
 import Investment from '@/models/Investment.ts';
 import HttpError from '@/errors/HttpError.ts';
+import { users } from '@/database/seeders.json' with { type: 'json' };
 import type { InvestmentInput } from '@/types/Investment.d.ts';
+
+const ADMIN_USER_ID = users[0].id; // Assuming the first user is the admin user
 
 async function create(req: Request, res: Response) {
   try {
     const investment = req.body as InvestmentInput;
 
-    const createdInvestment = await Investment.create(investment);
+    const createdInvestment = await Investment.create({
+      ...investment,
+      userId: ADMIN_USER_ID,
+    });
 
     return res.json(createdInvestment);
   } catch (error) {
@@ -51,7 +57,11 @@ async function update(req: Request<{ id: string }>, res: Response) {
     const investment = req.body as InvestmentInput;
     const { id } = req.params;
 
-    const updatedInvestment = await Investment.update({ ...investment, id });
+    const updatedInvestment = await Investment.update({
+      ...investment,
+      id,
+      userId: ADMIN_USER_ID,
+    });
 
     return res.json(updatedInvestment);
   } catch (error) {
