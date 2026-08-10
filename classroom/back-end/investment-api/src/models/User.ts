@@ -3,6 +3,9 @@ import { hashPassword } from '@/utils/password.ts';
 import type { User, UserInput } from '@/types/User.d.ts';
 
 const select = { id: true, name: true, email: true };
+const selectWithPassword = { ...select, password: true };
+
+type UserWithPassword = User & { password: string };
 
 async function create({ id, name, email, password }: UserInput): Promise<User> {
   if (name && email && password) {
@@ -24,6 +27,21 @@ async function readById(id: string): Promise<User> {
   if (user) {
     return user;
   }
+  throw new Error('User not found');
+}
+
+async function readByEmailWithPassword(
+  email: string,
+): Promise<UserWithPassword> {
+  const user = await prisma.user.findUnique({
+    where: { email },
+    select: selectWithPassword,
+  });
+
+  if (user) {
+    return user;
+  }
+
   throw new Error('User not found');
 }
 
@@ -53,4 +71,4 @@ async function remove(id: string): Promise<boolean> {
   return true;
 }
 
-export default { create, read, readById, update, remove };
+export default { create, read, readById, readByEmailWithPassword, update, remove };

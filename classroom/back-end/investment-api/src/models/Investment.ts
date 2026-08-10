@@ -43,11 +43,10 @@ async function create({
 }
 
 async function read(
-  field?: string,
-  value?: string | number,
+  filters: { name?: string; userId?: string } = {},
 ): Promise<Investment[]> {
   return prisma.investment.findMany({
-    where: field && value ? { [field]: value } : undefined,
+    where: filters,
     include,
   }) as Promise<Investment[]>;
 }

@@ -38,6 +38,20 @@ async function readById(req: Request<{ id: string }>, res: Response) {
   }
 }
 
+async function readMe(req: Request, res: Response) {
+  try {
+    if (!req.userId) {
+      throw new HttpError('Unauthorized', 401);
+    }
+
+    const user = await User.readById(req.userId);
+
+    res.json(user);
+  } catch (error) {
+    throw new HttpError('Unable to find user', 400);
+  }
+}
+
 async function update(req: Request<{ id: string }>, res: Response) {
   try {
     const user = req.body as UserInput;
@@ -65,4 +79,4 @@ async function remove(req: Request<{ id: string }>, res: Response) {
   }
 }
 
-export default { create, read, readById, update, remove };
+export default { create, read, readById, readMe, update, remove };

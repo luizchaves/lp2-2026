@@ -1,48 +1,90 @@
 # Rest Client (VS Code Extension - HTTP Requests)
 @server=http://localhost:3000
+@token={{signin.response.body.$.token}}
+@invalidToken=invalid.jwt.token
 @createInvestmentId={{createInvestment.response.body.$.id}}
 @createUserId={{createUser.response.body.$.id}}
+@categoryId=8f14e45f-ceea-467a-a866-084d1d1f0a2b
+@brokerId=45c48cce-2e2a-d39f-4b6a-a1b0f0b8c7e2
 
-### Create a user
+### Sign in with seeded admin user
+# @name signin
+POST {{server}}/api/signin
+Content-Type: application/json
+
+{
+  "email": "admin@email.com",
+  "password": "admin"
+}
+
+### Sign in with invalid credentials
+POST {{server}}/api/signin
+Content-Type: application/json
+
+{
+  "email": "admin@email.com",
+  "password": "wrong-password"
+}
+
+### Create a user (public route)
 # @name createUser
 POST {{server}}/api/users
 Content-Type: application/json
 
 {
   "name": "Maria",
-  "email": "maria@email.com",
+  "email": "maria-{{$timestamp}}@email.com",
   "password": "senha123"
 }
 
-### Create a user without name
+### Create a user without name (public route validation)
 POST {{server}}/api/users
 Content-Type: application/json
 
 {
-  "email": "maria@email.com",
+  "email": "maria-{{$timestamp}}@email.com",
   "password": "senha123"
 }
 
+### Try to read investments without token (401)
+GET {{server}}/api/investments
+
+### Try to read investments with invalid token (401)
+GET {{server}}/api/investments
+Authorization: Bearer {{invalidToken}}
+
+### Try to read users without token (401)
+GET {{server}}/api/users
+
+### Read authenticated user
+GET {{server}}/api/users/me
+Authorization: Bearer {{token}}
+
 ### Read users
 GET {{server}}/api/users
+Authorization: Bearer {{token}}
 
 ### Read a user
 GET {{server}}/api/users/{{createUserId}}
+Authorization: Bearer {{token}}
 
 ### Read a user with invalid id
 GET {{server}}/api/users/not-a-valid-id
+Authorization: Bearer {{token}}
 
 ### Update a user
 PUT {{server}}/api/users/{{createUserId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "name": "Maria Souza",
-  "email": "maria@email.com"
+  "email": "maria.souza-{{$timestamp}}@email.com"
 }
 
 ### Update a user with invalid id
 PUT {{server}}/api/users/not-a-valid-id
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -50,70 +92,128 @@ Content-Type: application/json
   "email": "maria@email.com"
 }
 
-### Delete a user
-DELETE {{server}}/api/users/{{createUserId}}
+### Read categories
+GET {{server}}/api/categories
+Authorization: Bearer {{token}}
 
-### Delete a user with invalid id
-DELETE {{server}}/api/users/not-a-valid-id
+### Read brokers
+GET {{server}}/api/brokers
+Authorization: Bearer {{token}}
 
 ### Create an investment
 # @name createInvestment
 POST {{server}}/api/investments
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "name": "Tesouro Selic 2031",
-  "amount": 18654
+  "amount": 18654,
+  "interest": "100% SELIC",
+  "dueDate": "2031-03-01",
+  "categoryId": "{{categoryId}}",
+  "brokerId": "{{brokerId}}"
 }
 
-### Create an investment without name
+### Create an investment without token (401)
 POST {{server}}/api/investments
 Content-Type: application/json
 
 {
-  "amount": 18654
+  "name": "Tesouro Selic 2031",
+  "amount": 18654,
+  "interest": "100% SELIC",
+  "dueDate": "2031-03-01",
+  "categoryId": "{{categoryId}}",
+  "brokerId": "{{brokerId}}"
+}
+
+### Create an investment without name
+POST {{server}}/api/investments
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "amount": 18654,
+  "interest": "100% SELIC",
+  "dueDate": "2031-03-01",
+  "categoryId": "{{categoryId}}",
+  "brokerId": "{{brokerId}}"
 }
 
 ### Read investments
 GET {{server}}/api/investments
+Authorization: Bearer {{token}}
+
+### Read investments by name
+GET {{server}}/api/investments?name=Tesouro%20Selic%202031
+Authorization: Bearer {{token}}
 
 ### Read an investment
 GET {{server}}/api/investments/{{createInvestmentId}}
+Authorization: Bearer {{token}}
 
 ### Read an investment with invalid id
 GET {{server}}/api/investments/not-a-valid-id
+Authorization: Bearer {{token}}
 
 ### Update an investment
 PUT {{server}}/api/investments/{{createInvestmentId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "name": "Tesouro Selic 2031",
-  "amount": 37308
+  "amount": 37308,
+  "interest": "100% SELIC",
+  "dueDate": "2031-03-01",
+  "categoryId": "{{categoryId}}",
+  "brokerId": "{{brokerId}}"
 }
 
 ### Update an investment without name
 PUT {{server}}/api/investments/{{createInvestmentId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "amount": 37308
+  "amount": 37308,
+  "interest": "100% SELIC",
+  "dueDate": "2031-03-01",
+  "categoryId": "{{categoryId}}",
+  "brokerId": "{{brokerId}}"
 }
 
 ### Update an investment with invalid id
 PUT {{server}}/api/investments/not-a-valid-id
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "name": "Tesouro Selic 2031",
-  "amount": 37308
+  "amount": 37308,
+  "interest": "100% SELIC",
+  "dueDate": "2031-03-01",
+  "categoryId": "{{categoryId}}",
+  "brokerId": "{{brokerId}}"
 }
 
 ### Delete an investment
 DELETE {{server}}/api/investments/{{createInvestmentId}}
+Authorization: Bearer {{token}}
 
 ### Delete an investment with invalid id
 DELETE {{server}}/api/investments/not-a-valid-id
+Authorization: Bearer {{token}}
+
+### Delete a user
+DELETE {{server}}/api/users/{{createUserId}}
+Authorization: Bearer {{token}}
+
+### Delete a user with invalid id
+DELETE {{server}}/api/users/not-a-valid-id
+Authorization: Bearer {{token}}
 
 ### Get an invalid route (404)
 GET {{server}}/api/invalid-route
+Authorization: Bearer {{token}}

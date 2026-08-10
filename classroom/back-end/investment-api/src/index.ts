@@ -6,6 +6,7 @@ import investmentRoutes from '@/routes/investments.routes.ts';
 import categoryRoutes from '@/routes/categories.routes.ts';
 import brokerRoutes from '@/routes/brokers.routes.ts';
 import userRoutes from '@/routes/users.routes.ts';
+import authRoutes from '@/routes/auth.routes.ts';
 
 const app = express();
 
@@ -19,6 +20,11 @@ app.use('/api', investmentRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', brokerRoutes);
 app.use('/api', userRoutes);
+app.use('/api', authRoutes);
+
+app.get('/', (req, res) => {
+  res.redirect('/home.html');
+});
 
 app.use(notFoundHandler);
 
