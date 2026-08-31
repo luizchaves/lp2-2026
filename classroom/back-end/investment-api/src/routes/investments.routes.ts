@@ -2,6 +2,14 @@ import { requireJsonContentType as requireJson } from '@/middlewares/requireJson
 import { Router } from 'express';
 import InvestmentController from '@/controllers/investments.controller.ts';
 import { isAuthenticated } from '@/middlewares/auth.ts';
+import { validate } from '@/middlewares/validate.ts';
+import {
+  createInvestmentSchema,
+  readInvestmentByIdSchema,
+  readInvestmentsSchema,
+  removeInvestmentSchema,
+  updateInvestmentSchema,
+} from '@/schemas/investment.schema.ts';
 
 const router = Router();
 
@@ -9,16 +17,33 @@ router.post(
   '/investments',
   isAuthenticated,
   requireJson,
+  validate(createInvestmentSchema),
   InvestmentController.create,
 );
-router.get('/investments', isAuthenticated, InvestmentController.read);
-router.get('/investments/:id', isAuthenticated, InvestmentController.readById);
+router.get(
+  '/investments',
+  isAuthenticated,
+  validate(readInvestmentsSchema),
+  InvestmentController.read,
+);
+router.get(
+  '/investments/:id',
+  isAuthenticated,
+  validate(readInvestmentByIdSchema),
+  InvestmentController.readById,
+);
 router.put(
   '/investments/:id',
   isAuthenticated,
   requireJson,
+  validate(updateInvestmentSchema),
   InvestmentController.update,
 );
-router.delete('/investments/:id', isAuthenticated, InvestmentController.remove);
+router.delete(
+  '/investments/:id',
+  isAuthenticated,
+  validate(removeInvestmentSchema),
+  InvestmentController.remove,
+);
 
 export default router;
