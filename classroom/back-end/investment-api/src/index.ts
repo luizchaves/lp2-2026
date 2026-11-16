@@ -1,6 +1,7 @@
 import { errorHandler, notFoundHandler } from '@/middlewares/errorHandlers.ts';
 import express from 'express';
 import morgan from 'morgan';
+import { pathToFileURL } from 'node:url';
 
 import investmentRoutes from '@/routes/investments.routes.ts';
 import categoryRoutes from '@/routes/categories.routes.ts';
@@ -30,4 +31,10 @@ app.use(notFoundHandler);
 
 app.use(errorHandler);
 
-app.listen(3000, () => console.log('Investment API listening on port 3000'));
+// Sobe o servidor só quando executado direto. Importado por um teste, o app
+// é usado em memória pelo supertest, sem abrir porta.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  app.listen(3000, () => console.log('Investment API listening on port 3000'));
+}
+
+export default app;

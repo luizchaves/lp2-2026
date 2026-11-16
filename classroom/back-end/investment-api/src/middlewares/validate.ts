@@ -37,7 +37,14 @@ export function validate(schema: ZodType<RequestData>) {
     }
 
     if ('query' in result.data) {
-      req.query = result.data.query as Request['query'];
+      // Express 5 define req.query apenas com getter; atribuição direta lança
+      // TypeError em modo estrito. defineProperty substitui o valor com segurança.
+      Object.defineProperty(req, 'query', {
+        value: result.data.query as Request['query'],
+        writable: true,
+        configurable: true,
+        enumerable: true,
+      });
     }
 
     if ('params' in result.data) {

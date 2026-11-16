@@ -14,14 +14,14 @@
       "color": "#2196F3"
     },
     {
-      "id": "c9f0f895-fb98-ab6f-4b23-c5bb44a69d9f",
+      "id": "c9f0f895-fb98-4b6f-8b23-c5bb44a69d9f",
       "name": "Renda Variável",
       "color": "#4CAF50"
     }
   ],
   "brokers": [
     {
-      "id": "45c48cce-2e2a-d39f-4b6a-a1b0f0b8c7e2",
+      "id": "45c48cce-2e2a-439f-8b6a-a1b0f0b8c7e2",
       "name": "Corretara X"
     },
     {
@@ -36,7 +36,7 @@
       "interest": "100% SELIC",
       "dueDate": "2029-03-01T00:00:00.000Z",
       "categoryId": "8f14e45f-ceea-467a-a866-084d1d1f0a2b",
-      "brokerId": "45c48cce-2e2a-d39f-4b6a-a1b0f0b8c7e2",
+      "brokerId": "45c48cce-2e2a-439f-8b6a-a1b0f0b8c7e2",
       "userId": "e5a1c9d2-6b3f-4a7e-8c1d-2f9b0a4d7e6c"
     },
     {
@@ -45,7 +45,7 @@
       "interest": "100% SELIC",
       "dueDate": "2029-03-01T00:00:00.000Z",
       "categoryId": "8f14e45f-ceea-467a-a866-084d1d1f0a2b",
-      "brokerId": "45c48cce-2e2a-d39f-4b6a-a1b0f0b8c7e2",
+      "brokerId": "45c48cce-2e2a-439f-8b6a-a1b0f0b8c7e2",
       "userId": "e5a1c9d2-6b3f-4a7e-8c1d-2f9b0a4d7e6c"
     },
     {

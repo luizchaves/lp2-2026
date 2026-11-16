@@ -12,7 +12,12 @@
     "db:load": "npm run db:migrate && npm run db:seed",
     "db:drop": "npx prisma migrate reset --force",
     "db:reload": "npm run db:drop && npm run db:seed",
-    "db:studio": "npx -p better-sqlite3 -p prisma prisma studio --url file:./dev.db"
+    "db:studio": "npx -p better-sqlite3 -p prisma prisma studio --url file:./dev.db",
+    "test": "NODE_ENV=test node --import tsx --test \"src/**/*.test.ts\"",
+    "coverage": "NODE_ENV=test node --import tsx --test --experimental-test-coverage --test-coverage-exclude=\"**/*.test.ts\" --test-coverage-exclude=\"src/generated/**\" --test-coverage-lines=70 --test-coverage-branches=60 --test-coverage-functions=55 \"src/**/*.test.ts\"",
+    "front:test": "vitest run public/js",
+    "front:coverage": "vitest run public/js --coverage",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.8.0",
@@ -23,13 +28,19 @@
     "zod": "^4.5.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
     "@types/better-sqlite3": "^7.6.13",
     "@types/express": "^5.0.6",
     "@types/morgan": "^1.9.10",
     "@types/node": "^25.9.1",
+    "@types/supertest": "^7.2.1",
+    "@vitest/coverage-v8": "^5.1.0",
+    "jsdom": "^31.0.1",
     "prisma": "^7.8.0",
     "prisma-erd-generator": "^2.4.2",
+    "supertest": "^7.3.2",
     "tsx": "^4.22.3",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^5.1.0"
   }
 }

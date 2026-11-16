@@ -35,7 +35,15 @@ npm run start        # Build then run compiled output
 npm run db:load      # Run migration + seeders
 npm run db:drop      # Delete db.sqlite
 npm run db:reload    # Drop + load (full reset)
+
+npm test             # Unit + route tests (node:test + supertest, no server needed)
+npm run coverage     # Same, with coverage floors (lines 70 / branches 60 / funcs 55)
+npm run front:test   # Front-end tests (Vitest + JSDOM, fetch/localStorage mocked)
+npm run front:coverage # Same, with coverage floors on public/js/lib
+npm run e2e          # Playwright E2E — requires dev server running on :3000
 ```
+
+Tests live next to what they test (`src/**/*.test.ts`, `public/js/**/*.test.js`), except E2E in `tests/`. Route tests write to the dev database using random e-mails per run.
 
 Dev server listens on **port 3000**. API endpoints are prefixed with `/api`.
 
